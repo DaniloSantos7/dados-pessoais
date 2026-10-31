@@ -1,0 +1,25 @@
+package br.senac.tads.dsw.dados_pessoais;
+
+import tools.jackson.databind.ObjectMapper;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import tools.jackson.databind.exc.JsonNodeException;
+
+
+@RestController
+public class HelloController{
+
+	@GetMapping("/hello")
+	public Mensagem hello(){
+		return new Mensagem("Danilo dos Santos", "Olá, mundo! Meu primeiro endpoint Spring Boot ");
+		}
+
+	@GetMapping(value = "/hello-manual", produces = MediaType.APPLICATION_JSON_VALUE)
+	public String helloManual() throws JsonNodeException{
+		Mensagem mensagem = new Mensagem("Danilo manual", "JSON gerado manualmente ");
+		ObjectMapper mapper = new ObjectMapper();
+		return mapper.writeValueAsString(mensagem);
+
+	}
+}
